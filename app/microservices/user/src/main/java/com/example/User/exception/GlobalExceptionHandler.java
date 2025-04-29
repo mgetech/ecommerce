@@ -1,4 +1,4 @@
-package com.example.common.exception;
+package com.example.User.exception;
 
 import com.example.common.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({UserNotFoundException.class, ProductNotFoundException.class})
+    @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(RuntimeException ex, HttpServletRequest req) {
         return new ResponseEntity<>(buildError(HttpStatus.NOT_FOUND, ex.getMessage(), req), HttpStatus.NOT_FOUND);
     }

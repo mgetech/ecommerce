@@ -6,7 +6,6 @@ import com.example.User.exception.UserNotFoundException;
 import com.example.User.repository.UserRepository;
 import com.example.User.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
