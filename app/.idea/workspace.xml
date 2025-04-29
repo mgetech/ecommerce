@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5d72ef39-8ab6-4cc0-a69a-fe22de5a6a49" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/microservices/product/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/src/main/java/com/example/Product/ProductApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/product/src/test/java/com/example/Product/ProductApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/src/main/java/com/example/User/UserApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/user/src/test/java/com/example/User/UserApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Ecommerce/EcommerceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/Ecommerce/EcommerceApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2wN8ar7Ijn2Z5fwkLU084gq36Qy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Utilities/Projects/Spring/ecommerce/app/microservices",
+    "spring.configuration.checksum": "441f310a824cc94e1da988717811d17a"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="EcommerceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="Ecommerce.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.Ecommerce.EcommerceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5d72ef39-8ab6-4cc0-a69a-fe22de5a6a49" name="Changes" comment="" />
+      <created>1745870738051</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745870738051</updated>
+      <workItem from="1745870739617" duration="3902000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>
