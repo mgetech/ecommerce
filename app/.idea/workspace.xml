@@ -5,39 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d72ef39-8ab6-4cc0-a69a-fe22de5a6a49" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/microservices/product/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/src/main/java/com/example/Product/ProductApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/product/src/test/java/com/example/Product/ProductApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/src/main/java/com/example/User/UserApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/user/src/test/java/com/example/User/UserApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Ecommerce/EcommerceApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/Ecommerce/EcommerceApplicationTests.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/checksums/checksums.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/executionHistory/executionHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/fileHashes/fileHashes.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.gradle/file-system.probe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/common/microservice.common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/common/microservice.common.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/common/microservice.common.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/microservice.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/product/microservice.product.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/product/microservice.product.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/product/microservice.product.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/user/microservice.user.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/user/microservice.user.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/user/microservice.user.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservices/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.idea/microservices.iml" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/microservices.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/4/4/4420a0dcc2962e183ec6965418bb6e271daa1b48" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/securityhotspotstore/4/4/4420a0dcc2962e183ec6965418bb6e271daa1b48" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +69,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Utilities/Projects/Spring/ecommerce/app/microservices",
+    "last_opened_file_path": "D:/Utilities/Projects/Spring/ecommerce/app",
     "spring.configuration.checksum": "441f310a824cc94e1da988717811d17a"
   }
 }]]></component>
@@ -91,6 +91,7 @@
       <option name="presentableId" value="Default" />
       <updated>1745870738051</updated>
       <workItem from="1745870739617" duration="3902000" />
+      <workItem from="1746135833174" duration="58000" />
     </task>
     <servers />
   </component>
