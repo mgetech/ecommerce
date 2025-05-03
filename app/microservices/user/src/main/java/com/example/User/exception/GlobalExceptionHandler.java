@@ -1,41 +1,56 @@
 package com.example.User.exception;
 
-//import com.example.common.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.http.ProblemDetail;
+import java.net.URI;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-   /* @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(RuntimeException ex, HttpServletRequest req) {
-        return new ResponseEntity<>(buildError(HttpStatus.NOT_FOUND, ex.getMessage(), req), HttpStatus.NOT_FOUND);
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleUserNotFound(UserNotFoundException ex, HttpServletRequest req) {
+        ProblemDetail problemDetail = createProblemDetail(
+                HttpStatus.NOT_FOUND,
+                ex.getMessage(),
+                req.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest req) {
+    public ResponseEntity<ProblemDetail> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest req) {
         String errorMessage = ex.getBindingResult().getFieldErrors().stream()
                 .map(e -> e.getField() + ": " + e.getDefaultMessage())
                 .findFirst().orElse("Validation failed");
-        return new ResponseEntity<>(buildError(HttpStatus.BAD_REQUEST, errorMessage, req), HttpStatus.BAD_REQUEST);
+
+        ProblemDetail problemDetail = createProblemDetail(
+                HttpStatus.BAD_REQUEST,
+                errorMessage,
+                req.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneral(Exception ex, HttpServletRequest req) {
-        return new ResponseEntity<>(buildError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), req), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    private ErrorResponse buildError(HttpStatus status, String message, HttpServletRequest req) {
-        return new ErrorResponse(
-                LocalDateTime.now(),
-                status.value(),
-                status.getReasonPhrase(),
-                message,
+    public ResponseEntity<ProblemDetail> handleGeneral(Exception ex, HttpServletRequest req) {
+        ProblemDetail problemDetail = createProblemDetail(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                ex.getMessage(),
                 req.getRequestURI()
         );
-    }*/
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
+    }
+
+    private ProblemDetail createProblemDetail(HttpStatus status, String message, String path) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, message);
+        problemDetail.setTitle(status.getReasonPhrase());
+        problemDetail.setInstance(URI.create(path));
+        return problemDetail;
+    }
 }
+
