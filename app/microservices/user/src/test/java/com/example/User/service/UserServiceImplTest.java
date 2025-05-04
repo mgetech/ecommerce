@@ -16,7 +16,7 @@ public class UserServiceImplTest {
 
     @Test
     public void CreateTest(){
-        UserRequestDTO userRequestDTO = new UserRequestDTO("John2", "john.hs2@gmail.com");
+        UserRequestDTO userRequestDTO = new UserRequestDTO("jax2", "john.hs2@gmail.com");
         System.out.println(userServiceImpl.create(userRequestDTO));
 
     }

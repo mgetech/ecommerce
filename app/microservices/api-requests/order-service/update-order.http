@@ -1,0 +1,3 @@
+### Updates order status
+PATCH http://localhost:8083/orders/3/status?status=CONFIRMED
+Accept: application/json

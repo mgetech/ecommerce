@@ -11,10 +11,12 @@ import com.example.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -22,6 +24,25 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
+
+
+    @Override
+    @Transactional
+    public OrderResponseDTO createSimpleOrder(OrderRequestDTO request) {
+        log.info("Simple create for user {} product {}",
+                request.getUserId(), request.getProductId());
+
+        OrderEntity order = OrderEntity.builder()
+                .userId(request.getUserId())
+                .productId(request.getProductId())
+                .quantity(request.getQuantity())
+                .status(OrderStatus.PENDING)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        order = orderRepository.save(order);
+        return toResponse(order);
+    }
 
     @Override
     public OrderResponseDTO createOrder(OrderRequestDTO request) {
