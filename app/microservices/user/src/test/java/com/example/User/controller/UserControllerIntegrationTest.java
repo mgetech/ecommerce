@@ -27,8 +27,6 @@ public class UserControllerIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Autowired
-    private UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
