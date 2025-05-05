@@ -61,6 +61,8 @@ services:
             SPRING_DATASOURCE_URL: jdbc:postgresql://${USER_DB_HOST}:${USER_DB_PORT}/${USER_DB}
             SPRING_DATASOURCE_USERNAME: ${USER}
             SPRING_DATASOURCE_PASSWORD: ${PASSWORD}
+            USER_DB_HOST: ${USER_DB_HOST}
+            USER_DB_PORT: ${USER_DB_PORT}
         ports:
             - "8081:8081"
 
@@ -75,6 +77,8 @@ services:
             SPRING_DATASOURCE_URL: jdbc:postgresql://${PRODUCT_DB_HOST}:${PRODUCT_DB_PORT}/${PRODUCT_DB}
             SPRING_DATASOURCE_USERNAME: ${USER}
             SPRING_DATASOURCE_PASSWORD: ${PASSWORD}
+            PRODUCT_DB_HOST: ${PRODUCT_DB_HOST}
+            PRODUCT_DB_PORT: ${PRODUCT_DB_PORT}
         ports:
             - "8082:8082"
 
@@ -89,5 +93,7 @@ services:
             SPRING_DATASOURCE_URL: jdbc:postgresql://${ORDER_DB_HOST}:${ORDER_DB_PORT}/${ORDER_DB}
             SPRING_DATASOURCE_USERNAME: ${USER}
             SPRING_DATASOURCE_PASSWORD: ${PASSWORD}
+            ORDER_DB_HOST: ${ORDER_DB_HOST}
+            ORDER_DB_PORT: ${ORDER_DB_PORT}
         ports:
             - "8083:8083"
