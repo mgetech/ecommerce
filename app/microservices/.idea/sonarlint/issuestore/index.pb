@@ -107,3 +107,5 @@ Y
 )api-requests/order-service/get-order.http,c\d\cd1bc3dd2ac0529cc98efc550322781647a606a8
 w
 Gorder/src/test/java/com/example/order/service/OrderServiceImplTest.java,3\6\366ff929593870c92df7b9632b84d183d6e4547a
+p
+@order/src/test/java/com/example/order/OrderApplicationTests.java,7\0\70845f291ce87b7f20716029f04705c007234835

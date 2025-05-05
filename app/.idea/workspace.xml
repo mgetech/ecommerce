@@ -5,38 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d72ef39-8ab6-4cc0-a69a-fe22de5a6a49" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/checksums/checksums.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/executionHistory/executionHistory.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/fileHashes/fileHashes.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/8.14/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.gradle/file-system.probe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/common/microservice.common.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/common/microservice.common.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/common/microservice.common.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/microservice.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/product/microservice.product.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/product/microservice.product.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/product/microservice.product.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/user/microservice.user.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/user/microservice.user.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/.idea/modules/user/microservice.user.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservices/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/.idea/microservices.iml" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/microservices.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/4/4/4420a0dcc2962e183ec6965418bb6e271daa1b48" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/3/6/366ff929593870c92df7b9632b84d183d6e4547a" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/3/6/366ff929593870c92df7b9632b84d183d6e4547a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/3/7/37cde01a3e73b72d01cee95155fc60c0fb64de9a" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/3/7/37cde01a3e73b72d01cee95155fc60c0fb64de9a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/e/3/e3ac777dd7fad6d76a8fdd8333101bb9c9588bcf" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/e/3/e3ac777dd7fad6d76a8fdd8333101bb9c9588bcf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/securityhotspotstore/4/4/4420a0dcc2962e183ec6965418bb6e271daa1b48" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/microservices/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,11 +42,24 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Utilities/Projects/Spring/ecommerce/app",
+    "last_opened_file_path": "D:/Utilities/Projects/Spring/ecommerce/app/microservices",
     "spring.configuration.checksum": "441f310a824cc94e1da988717811d17a"
   }
 }]]></component>
   <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="app" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="app" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EcommerceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="Ecommerce.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.Ecommerce.EcommerceApplication" />
@@ -92,6 +78,7 @@
       <updated>1745870738051</updated>
       <workItem from="1745870739617" duration="3902000" />
       <workItem from="1746135833174" duration="58000" />
+      <workItem from="1746441271735" duration="374000" />
     </task>
     <servers />
   </component>

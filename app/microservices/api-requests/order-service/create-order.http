@@ -3,7 +3,7 @@ POST http://localhost:8083/orders
 Content-Type: application/json
 
 {
-  "userId": 4,
+  "userId": 2,
   "productId": 4,
-  "quantity": 1
+  "quantity": 10
 }
