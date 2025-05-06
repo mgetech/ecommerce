@@ -1,0 +1,127 @@
+# This docker-compose would be used for pulling images from DockerHub
+# Due to the EC2 resource limitation, the other two services were commented out.
+
+services:
+  user-db:
+    image: postgres:15-alpine
+    container_name: user-db
+    environment:
+      POSTGRES_DB: ${USER_DB}
+      POSTGRES_USER: ${USER}
+      POSTGRES_PASSWORD: ${PASSWORD}
+    ports:
+      - "5433:5432" # Host port 5433 maps to container port 5432
+    volumes:
+      - ./db-init/user-service:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${USER} -d ${USER_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: # Added for clarity, though a default network is created
+      - ecommerce-network
+
+#  product-db:
+#    image: postgres:15-alpine
+#    container_name: product-db
+#    environment:
+#      POSTGRES_DB: ${PRODUCT_DB}
+#      POSTGRES_USER: ${USER}
+#      POSTGRES_PASSWORD: ${PASSWORD}
+#    ports:
+#      - "5434:5432" # Host port 5434 maps to container port 5432
+#    volumes:
+#      - ./db-init/product-service:/docker-entrypoint-initdb.d
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U ${USER} -d ${PRODUCT_DB}"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#    networks:
+#      - ecommerce-network
+#
+#  order-db:
+#    image: postgres:15-alpine
+#    container_name: order-db
+#    environment:
+#      POSTGRES_DB: ${ORDER_DB}
+#      POSTGRES_USER: ${USER}
+#      POSTGRES_PASSWORD: ${PASSWORD}
+#    ports:
+#      - "5435:5432" # Host port 5435 maps to container port 5432
+#    volumes:
+#      - ./db-init/order-service:/docker-entrypoint-initdb.d
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U ${USER} -d ${ORDER_DB}"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#    networks:
+#      - ecommerce-network
+
+  user-service:
+    image: mgetech/user-service:v1 # Replaced build with image
+    container_name: user-service
+    depends_on:
+      user-db: # Ensures user-db is healthy before starting user-service
+        condition: service_healthy
+    environment:
+      # For communication within Docker network, use service name as host
+      # and the internal port of the database (5432 for PostgreSQL)
+      SPRING_DATASOURCE_URL: jdbc:postgresql://user-db:5432/${USER_DB}
+      SPRING_DATASOURCE_USERNAME: ${USER}
+      SPRING_DATASOURCE_PASSWORD: ${PASSWORD}
+      # USER_DB_HOST and USER_DB_PORT are now implicitly user-db and 5432
+      # You can remove these two if your application directly uses SPRING_DATASOURCE_URL
+      # Or set them explicitly if needed elsewhere:
+      USER_DB_HOST: user-db
+      USER_DB_PORT: 5432
+    ports:
+      - "8081:8081"
+    networks:
+      - ecommerce-network
+
+#  product-service:
+#    image: mgetech/product-service:v1 # Replaced build with image
+#    container_name: product-service
+#    depends_on:
+#      product-db: # Ensures product-db is healthy before starting product-service
+#        condition: service_healthy
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://product-db:5432/${PRODUCT_DB}
+#      SPRING_DATASOURCE_USERNAME: ${USER}
+#      SPRING_DATASOURCE_PASSWORD: ${PASSWORD}
+#      PRODUCT_DB_HOST: product-db
+#      PRODUCT_DB_PORT: 5432
+#    ports:
+#      - "8082:8082"
+#    networks:
+#      - ecommerce-network
+#
+#  order-service:
+#    image: mgetech/order-service:v1 # Replaced build with image
+#    container_name: order-service
+#    depends_on:
+#      order-db: # Ensures order-db is healthy
+#        condition: service_healthy
+#      user-service: # Ensures user-service has started
+#        condition: service_started # Use service_healthy if user-service had a healthcheck
+#      product-service: # Ensures product-service has started
+#        condition: service_started # Use service_healthy if product-service had a healthcheck
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://order-db:5432/${ORDER_DB}
+#      SPRING_DATASOURCE_USERNAME: ${USER}
+#      SPRING_DATASOURCE_PASSWORD: ${PASSWORD}
+#      ORDER_DB_HOST: order-db
+#      ORDER_DB_PORT: 5432
+#      # Service names are used for inter-service communication on the Docker network
+#      USER_SERVICE_BASE_URL: http://user-service:8081
+#      PRODUCT_SERVICE_BASE_URL: http://product-service:8082
+#    ports:
+#      - "8083:8083"
+#    networks:
+#      - ecommerce-network
+
+networks: # Define a common network for all services
+  ecommerce-network:
+    driver: bridge
