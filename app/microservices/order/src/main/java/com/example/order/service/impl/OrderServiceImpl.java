@@ -8,12 +8,15 @@ import com.example.order.exception.ExternalServiceException;
 import com.example.order.exception.OrderNotFoundException;
 import com.example.order.repository.OrderRepository;
 import com.example.order.service.OrderService;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import org.springframework.core.env.Environment;
+
 
 import java.time.LocalDateTime;
 
@@ -24,7 +27,15 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
+    private final Environment env;
+    private String userBase;
+    private String productBase;
 
+    @PostConstruct
+    private void init() {
+        this.userBase = env.getProperty("user.service.base-url");
+        this.productBase = env.getProperty("product.service.base-url");
+    }
 
     @Override
     @Transactional
@@ -53,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
         // 1. Validate user
         try {
             webClient.get()
-                    .uri("http://localhost:8081/users/{id}", request.getUserId())
+                    .uri(userBase + "/users/{id}", request.getUserId())
                     .retrieve()
                     .onStatus(status -> status.is4xxClientError(), response -> {
                         log.info("User not found: {}", response.statusCode());
@@ -73,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
         // 2. Validate product
         try {
             webClient.get()
-                    .uri("http://localhost:8082/products/{id}", request.getProductId())
+                    .uri(productBase + "/products/{id}", request.getProductId())
                     .retrieve()
                     .onStatus(status -> status.is4xxClientError(), response -> {
                         log.info("Product not found: {}", response.statusCode());

@@ -95,5 +95,7 @@ services:
             SPRING_DATASOURCE_PASSWORD: ${PASSWORD}
             ORDER_DB_HOST: ${ORDER_DB_HOST}
             ORDER_DB_PORT: ${ORDER_DB_PORT}
+            USER_SERVICE_BASE_URL: http://user-service:8081
+            PRODUCT_SERVICE_BASE_URL: http://product-service:8082
         ports:
             - "8083:8083"
