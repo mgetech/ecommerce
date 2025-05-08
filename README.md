@@ -29,4 +29,5 @@ Accept: application/json
 
 To run locally:
 ```bash
+cd app
 docker compose up --build
