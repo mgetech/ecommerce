@@ -1,7 +1,7 @@
 # It works, but not being used due to the EC2 resource limitation
 
 
-#name: Deploy to EC2
+name: Deploy to EC2
 #
 #on:
 #  push:
