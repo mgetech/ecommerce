@@ -1,0 +1,8 @@
+# IntelliJ IDEA project files
+.idea/
+
+# Gradle cache and settings
+.gradle/
+
+# Build directories (for all modules)
+**/build/
