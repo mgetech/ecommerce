@@ -1,9 +1,0 @@
-
-o
-java:S1612:"MReplace this lambda with method reference 'HttpStatusCode::is4xxClientError'.(¥¥§şÿÿÿÿ8ƒë°éé2
-i
-java:S1612>"MReplace this lambda with method reference 'HttpStatusCode::is5xxServerError'.( ‰y8Šë°éé2
-o
-java:S1612N"MReplace this lambda with method reference 'HttpStatusCode::is4xxClientError'.(¥¥§şÿÿÿÿ8ë°éé2
-i
-java:S1612R"MReplace this lambda with method reference 'HttpStatusCode::is5xxServerError'.( ‰y8¡ë°éé2
