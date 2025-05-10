@@ -52,7 +52,7 @@ jobs:
         run: |
           docker ps
 
-      # Step 6: (Optional) Run tests here to check that services are functioning
+      # Step 6: (Optional) Run tests here to check that services are functioning 
       # Example: curl http://localhost:8081
 
       # Step 7: Clean up by bringing down containers
