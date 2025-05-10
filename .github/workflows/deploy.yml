@@ -3,13 +3,6 @@ name: Test Docker Compose on GitHub Actions
 on:
   push:
     branches: [ci/setup-cloud]  # Workflow runs on push to this branch
-    paths: app/docker-compose.yml
-
-  pull_request:
-    branches:
-      - ci/setup-cloud
-    paths:
-      - 'app/docker-compose.yml'
 
 jobs:
   test:
