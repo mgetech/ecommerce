@@ -5,7 +5,7 @@ on:
     branches:
       - ci/setup-cloud  # Branch name updated
     # Only run the workflow if the commit message contains "deploy to cloud"
-    # This prevents unnecessary workflow runs
+    # This prevents unnecessary workflow runs 
     paths:
       - 'app/docker-compose.yml'
 
