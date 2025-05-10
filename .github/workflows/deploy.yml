@@ -3,9 +3,7 @@ name: Test Docker Compose on GitHub Actions
 on:
   push:
     branches:
-      - ci/setup-cloud  # Branch name updated
-    # Only run the workflow if the commit message contains "deploy to cloud"
-    # This prevents unnecessary workflow runs 
+      - ci/setup-cloud  # Workflow runs on push to this branch
     paths:
       - 'app/docker-compose.yml'
 
@@ -18,7 +16,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, 'deploy to cloud')
 
     steps:
       # Step 1: Checkout the code
