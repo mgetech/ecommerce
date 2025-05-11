@@ -50,7 +50,7 @@ jobs:
       # 3) Build & push user-service image
       - name: Build & push user-service
         run: |
-          cd app  # Navigate to the folder containing microservices
+          #cd app  # Navigate to the folder containing microservices  
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service ./microservices/user
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service
       
