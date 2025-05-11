@@ -33,20 +33,25 @@ jobs:
         uses: actions/checkout@v3
       
       # 2) Authenticate to GCP
+      - name: Decode GCP credentials
+        run: echo "${{ secrets.GCP_CREDENTIALS }}" | base64 -d > ${{ github.workspace }}/key.json
+
       - name: Set up GCP CLI
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          service_account_key: ${{ github.workspace }}/key.json
           export_default_credentials: true
-      
+
+      - name: Authenticate Docker to GCR
+        run: |
+          gcloud auth configure-docker
+
       # 3) Build & push user-service image
       - name: Build & push user-service
         run: |
           cd app  # Navigate to the folder containing microservices
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service ./microservices/user
-          echo "${{ secrets.GCP_CREDENTIALS }}" \
-            | docker login -u _json_key --password-stdin https://gcr.io
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service
       
       # 4) Deploy to Cloud Run with Cloud SQL attached
