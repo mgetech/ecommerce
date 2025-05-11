@@ -1,0 +1,63 @@
+name: Deploy User Service to Cloud Run
+
+on:
+  push:
+    branches: [ci/setup-cloud]
+    # Only run the workflow if the commit message contains "[deploy_user_service]"
+  pull_request:
+    branches: [ci/setup-cloud]
+
+
+jobs:
+  build-and-deploy:
+    if: contains(github.event.head_commit.message, '[deploy_user_service]')
+    runs-on: ubuntu-latest
+    env:
+      USER_DB: user_service_db
+      PRODUCT_DB: product_service_db
+      ORDER_DB: order_service_db
+
+      USER: postgres
+      PASSWORD: postgres
+
+      USER_DB_PORT: 5432
+      PRODUCT_DB_PORT: 5432
+      ORDER_DB_PORT: 5432
+
+      USER_DB_HOST: user-db
+      PRODUCT_DB_HOST: product-db
+      ORDER_DB_HOST: order-db
+    steps:
+      # 1) Checkout your code
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      
+      # 2) Authenticate to GCP
+      - name: Set up GCP CLI
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          export_default_credentials: true
+      
+      # 3) Build & push user-service image
+      - name: Build & push user-service
+        run: |
+          cd app  # Navigate to the folder containing microservices
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service ./microservices/user
+          echo "${{ secrets.GCP_CREDENTIALS }}" \
+            | docker login -u _json_key --password-stdin https://gcr.io
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service
+      
+      # 4) Deploy to Cloud Run with Cloud SQL attached
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy user-service \
+            --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service \
+            --platform=managed \
+            --region=europe-west3 \
+            --allow-unauthenticated \
+            --set-env-vars=\
+            SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,\
+            SPRING_DATASOURCE_USERNAME=postgres,\
+            SPRING_DATASOURCE_PASSWORD=postgres
