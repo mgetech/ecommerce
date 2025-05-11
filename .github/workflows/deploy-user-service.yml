@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-deploy:
-    if: contains(github.event.head_commit.message, 'deploy_user_service')
+    if: contains(github.event.head_commit.message, 'deploy user service')
     runs-on: ubuntu-latest
     env:
       USER_DB: user_service_db
