@@ -1,17 +1,16 @@
-name: Deploy User Service to Cloud Run
+name: Test Docker Compose on GitHub Actions
 
 on:
   push:
     branches: [ci/setup-cloud]
-    # Only run the workflow if the commit message contains "[deploy_user_service]"
+    # Only run the workflow if the commit message contains "deploy to cloud"
   pull_request:
     branches: [ci/setup-cloud]
 
-
 jobs:
-  build-and-deploy:
-    if: contains(github.event.head_commit.message, 'deploy user service')
+  test:
     runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[deploy]')  # Only run if commit message contains "deploy to cloud"
     env:
       USER_DB: user_service_db
       PRODUCT_DB: product_service_db
@@ -28,36 +27,36 @@ jobs:
       PRODUCT_DB_HOST: product-db
       ORDER_DB_HOST: order-db
     steps:
-      # 1) Checkout your code
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      # Step 1: Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      # 2) Authenticate to GCP
-      - name: Set up GCP CLI
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-          export_default_credentials: true
+      # Step 2: Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-      # 3) Build & push user-service image
-      - name: Build & push user-service
+      # Step 3: Install Docker Compose
+      - name: Install Docker Compose
         run: |
-          cd app  # Navigate to the folder containing microservices
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service ./microservices/user
-          echo "${{ secrets.GCP_CREDENTIALS }}" \
-            | docker login -u _json_key --password-stdin https://gcr.io
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
 
-      # 4) Deploy to Cloud Run with Cloud SQL attached
-      - name: Deploy to Cloud Run
+      # Step 4: Build and start services with Docker Compose
+      - name: Build and start services
         run: |
-          gcloud run deploy user-service \
-            --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service \
-            --platform=managed \
-            --region=europe-west3 \
-            --allow-unauthenticated \
-            --set-env-vars=\
-            SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,\
-            SPRING_DATASOURCE_USERNAME=postgres,\
-            SPRING_DATASOURCE_PASSWORD=postgres
+          cd app  # Navigate to the folder containing docker-compose.yml
+          docker-compose -f docker-compose.yml up -d --build
+
+      # Step 5: Verify that the containers are running (optional, to check health)
+      - name: Check Docker containers
+        run: |
+          docker ps
+
+      # Step 6: (Optional) Run tests here to check that services are functioning 
+      # Example: curl http://localhost:8081
+
+      # Step 7: Clean up by bringing down containers
+      - name: Docker Compose Down
+        run: |
+          cd app  # Navigate back to the app directory
+          docker-compose down
