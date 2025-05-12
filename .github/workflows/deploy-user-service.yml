@@ -27,55 +27,51 @@ jobs:
       USER_DB_HOST: user-db
       PRODUCT_DB_HOST: product-db
       ORDER_DB_HOST: order-db
+
       PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-      IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest
+      AR_LOCATION: europe-west3
+      AR_REPOSITORY: microservice-repo
+      IMAGE_NAME: user-service
+      IMAGE_URI: ${AR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPOSITORY}/${IMAGE_NAME}:latest
 
     steps:
       # 1) Checkout your code
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      # 2) Save service-account JSON key
-      - name: Write GCP key file
-        run: |
-          echo '${{ secrets.GCP_CREDENTIALS_RAW }}' > key.json
-
-      # 3) Docker login directly to gcr.io using _json_key
-      - name: Docker login to gcr.io
-        run: |
-          cat key.json | docker login -u _json_key --password-stdin https://gcr.io
-
-      # 4) Build the Docker image
-      - name: Build user-service image
-        run: |
-          docker build \
-            -t "${IMAGE}" \
-            ./app/microservices/user
-
-      # 5) Push to Container Registry (gcr.io)
-      - name: Push image to gcr.io
-        run: |
-          docker push "${IMAGE}"
-
-      # 6) Authenticate gcloud for deployment
-      - name: Authenticate gcloud
+      # 2) Authenticate to GCP
+      - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS_RAW }}
+          credentials_json: '${{ secrets.GCP_CREDENTIALS_RAW }}'
 
-      # 7) Set up gcloud SDK
-      - name: Set up Google Cloud SDK
+      # 3) Set up Cloud SDK
+      - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ env.PROJECT_ID }}
 
-      # 8) Deploy to Cloud Run with Cloud SQL socket factory
+      # 4) Configure Docker credential helper for your AR repo
+      - name: Configure Docker for Artifact Registry
+        run: |
+          gcloud auth configure-docker ${AR_LOCATION}-docker.pkg.dev --quiet
+
+      # 5) Build & push user-service image to Artifact Registry
+      - name: Build & push user-service
+        run: |
+          cd app  # where your microservices folder lives
+          docker build \
+            -t "${IMAGE_URI}" \
+            ./microservices/user
+          docker push "${IMAGE_URI}"
+
+      # 6) Deploy to Cloud Run with Cloud SQL attached
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy user-service \
-            --image="${IMAGE}" \
+          gcloud run deploy ${IMAGE_NAME} \
+            --image="${IMAGE_URI}" \
             --platform=managed \
-            --region=europe-west3 \
+            --region=${AR_LOCATION} \
             --allow-unauthenticated \
             --set-env-vars=\
             SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,\
