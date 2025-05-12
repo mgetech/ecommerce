@@ -28,50 +28,41 @@ jobs:
       PRODUCT_DB_HOST: product-db
       ORDER_DB_HOST: order-db
 
-      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-      AR_LOCATION: europe-west3
-      AR_REPOSITORY: microservice-repo
+      REGION: europe-west3
+      REPOSITORY: microservice_repo
       IMAGE_NAME: user-service
-      IMAGE_URI: ${AR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPOSITORY}/${IMAGE_NAME}:latest
 
     steps:
-      # 1) Checkout your code
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2) Authenticate to GCP
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS_RAW }}'
+          credentials_json: ${{ secrets.GCP_CREDENTIALS_RAW }}
 
-      # 3) Set up Cloud SDK
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
-          project_id: ${{ env.PROJECT_ID }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      # 4) Configure Docker credential helper for your AR repo
       - name: Configure Docker for Artifact Registry
-        run: |
-          gcloud auth configure-docker ${AR_LOCATION}-docker.pkg.dev --quiet
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
-      # 5) Build & push user-service image to Artifact Registry
-      - name: Build & push user-service
+      - name: Build & Push Docker image
         run: |
-          cd app  # where your microservices folder lives
-          docker build \
-            -t "${IMAGE_URI}" \
-            ./microservices/user
-          docker push "${IMAGE_URI}"
+          IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          cd app
+          docker build -t "$IMAGE_URI" ./microservices/user
+          docker push "$IMAGE_URI"
 
-      # 6) Deploy to Cloud Run with Cloud SQL attached
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy ${IMAGE_NAME} \
-            --image="${IMAGE_URI}" \
+          IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          gcloud run deploy ${{ env.IMAGE_NAME }} \
+            --image="$IMAGE_URI" \
             --platform=managed \
-            --region=${AR_LOCATION} \
+            --region=${{ env.REGION }} \
             --allow-unauthenticated \
             --set-env-vars=\
             SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,\
