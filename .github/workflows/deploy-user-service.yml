@@ -48,6 +48,9 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           # No 'service_account_key' or 'export_default_credentials' here
 
+      - name: Configure Docker credential helper for gcr.io
+        run: gcloud auth configure-docker gcr.io --quiet
+
       # 3) Build & push user-service image
       - name: Build & push user-service
         run: |
