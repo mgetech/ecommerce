@@ -29,7 +29,7 @@ jobs:
       ORDER_DB_HOST: order-db
 
       REGION: europe-west3
-      REPOSITORY: microservice_repo
+      REPOSITORY: microservice-repo
       IMAGE_NAME: user-service
 
     steps:
