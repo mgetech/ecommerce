@@ -30,22 +30,26 @@ jobs:
     steps:
       # 1) Checkout your code
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 2) Authenticate to GCP
       - name: Decode GCP credentials
         run: echo "${{ secrets.GCP_CREDENTIALS }}" | base64 -d > ${{ github.workspace }}/key.json
 
-      - name: Set up GCP CLI
-        uses: google-github-actions/setup-gcloud@v1
+      # 2) Authenticate to GCP
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: 'google-github-actions/auth@v2' # Use a recent version of the auth action
+        with:
+          credentials_json: '${{ github.workspace }}/key.json'
+
+      # 3) Set up GCP CLI
+      # The setup-gcloud action will now use the credentials established by the 'auth' step
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v2' # Use a recent version
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ github.workspace }}/key.json
-          export_default_credentials: true
-
-      - name: Authenticate Docker to GCR
-        run: |
-          gcloud auth configure-docker gcr.io,eu.gcr.io # Explicitly configure for gcr.io and the EU multi-region
+          # No 'service_account_key' or 'export_default_credentials' here
 
       # 3) Build & push user-service image
       - name: Build & push user-service
@@ -55,7 +59,7 @@ jobs:
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest ./microservices/user
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest # Push with the tag
 
-      
+
       # 4) Deploy to Cloud Run with Cloud SQL attached
       - name: Deploy to Cloud Run
         run: |
