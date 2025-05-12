@@ -27,44 +27,53 @@ jobs:
       USER_DB_HOST: user-db
       PRODUCT_DB_HOST: product-db
       ORDER_DB_HOST: order-db
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest
+
     steps:
       # 1) Checkout your code
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2) Save service-account JSON key
+      - name: Write GCP key file
+        run: |
+          echo '${{ secrets.GCP_CREDENTIALS_RAW }}' > key.json
 
-      # 2) Authenticate to GCP
-      - name: Authenticate to Google Cloud
-        id: auth
-        uses: 'google-github-actions/auth@v2' # Use a recent version of the auth action
+      # 3) Docker login directly to gcr.io using _json_key
+      - name: Docker login to gcr.io
+        run: |
+          cat key.json | docker login -u _json_key --password-stdin https://gcr.io
+
+      # 4) Build the Docker image
+      - name: Build user-service image
+        run: |
+          docker build \
+            -t "${IMAGE}" \
+            ./app/microservices/user
+
+      # 5) Push to Container Registry (gcr.io)
+      - name: Push image to gcr.io
+        run: |
+          docker push "${IMAGE}"
+
+      # 6) Authenticate gcloud for deployment
+      - name: Authenticate gcloud
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS_RAW }}
 
-      # 3) Set up GCP CLI
-      # The setup-gcloud action will now use the credentials established by the 'auth' step
-      - name: Set up Cloud SDK
-        uses: 'google-github-actions/setup-gcloud@v2' # Use a recent version
+      # 7) Set up gcloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          # No 'service_account_key' or 'export_default_credentials' here
+          project_id: ${{ env.PROJECT_ID }}
 
-      - name: Configure Docker credential helper for gcr.io
-        run: gcloud auth configure-docker gcr.io --quiet
-
-      # 3) Build & push user-service image
-      - name: Build & push user-service
-        run: |
-          cd app  # Navigate to the folder containing microservices
-          # Use the standard gcr.io tag format
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest ./microservices/user
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest # Push with the tag
-
-
-      # 4) Deploy to Cloud Run with Cloud SQL attached
+      # 8) Deploy to Cloud Run with Cloud SQL socket factory
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy user-service \
-            --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest \
+            --image="${IMAGE}" \
             --platform=managed \
             --region=europe-west3 \
             --allow-unauthenticated \
