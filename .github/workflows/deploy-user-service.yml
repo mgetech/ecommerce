@@ -31,7 +31,7 @@ jobs:
       # 1) Checkout your code
       - name: Checkout repo
         uses: actions/checkout@v3
-      
+
       # 2) Authenticate to GCP
       - name: Decode GCP credentials
         run: echo "${{ secrets.GCP_CREDENTIALS }}" | base64 -d > ${{ github.workspace }}/key.json
@@ -45,20 +45,22 @@ jobs:
 
       - name: Authenticate Docker to GCR
         run: |
-          gcloud auth configure-docker
+          gcloud auth configure-docker gcr.io,eu.gcr.io # Explicitly configure for gcr.io and the EU multi-region
 
       # 3) Build & push user-service image
       - name: Build & push user-service
         run: |
-          cd app  # Navigate to the folder containing microservices  
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service ./microservices/user
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service
+          cd app  # Navigate to the folder containing microservices
+          # Use the standard gcr.io tag format
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest ./microservices/user
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest # Push with the tag
+
       
       # 4) Deploy to Cloud Run with Cloud SQL attached
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy user-service \
-            --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service \
+            --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/user-service:latest \
             --platform=managed \
             --region=europe-west3 \
             --allow-unauthenticated \
