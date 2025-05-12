@@ -32,16 +32,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # 2) Authenticate to GCP
-      - name: Decode GCP credentials
-        run: echo "${{ secrets.GCP_CREDENTIALS }}" | base64 -d > ${{ github.workspace }}/key.json
 
       # 2) Authenticate to GCP
       - name: Authenticate to Google Cloud
         id: auth
         uses: 'google-github-actions/auth@v2' # Use a recent version of the auth action
         with:
-          credentials_json: '${{ github.workspace }}/key.json'
+          credentials_json: ${{ secrets.GCP_CREDENTIALS_RAW }}
 
       # 3) Set up GCP CLI
       # The setup-gcloud action will now use the credentials established by the 'auth' step
