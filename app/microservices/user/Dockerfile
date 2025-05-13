@@ -18,7 +18,7 @@ COPY wait-for-db.sh /app/wait-for-db.sh
 RUN chmod +x /app/wait-for-db.sh
 # For cloud deployment
 ENV SPRING_PROFILES_ACTIVE=cloud
-
+EXPOSE 8080
 WORKDIR /app
 
 ENTRYPOINT ["sh", "/app/wait-for-db.sh"]
