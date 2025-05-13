@@ -1,0 +1,4 @@
+### Get a user
+GET http://localhost:8081/users/2
+Content-Type: application/json
+

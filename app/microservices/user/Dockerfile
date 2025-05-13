@@ -14,10 +14,11 @@ RUN apk add --no-cache postgresql-client
 COPY --from=builder /app/build/libs/*.jar /app/user-service.jar
 COPY wait-for-db.sh /app/wait-for-db.sh
 
-# Make script executable (important on Windows)
+# Make script executable
 RUN chmod +x /app/wait-for-db.sh
+# For cloud deployment
+ENV SPRING_PROFILES_ACTIVE=cloud
 
 WORKDIR /app
-EXPOSE 8081
 
 ENTRYPOINT ["sh", "/app/wait-for-db.sh"]

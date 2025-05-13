@@ -71,11 +71,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://user-db:5432/${USER_DB}
       SPRING_DATASOURCE_USERNAME: ${USER}
       SPRING_DATASOURCE_PASSWORD: ${PASSWORD}
-      # USER_DB_HOST and USER_DB_PORT are now implicitly user-db and 5432
-      # You can remove these two if your application directly uses SPRING_DATASOURCE_URL
-      # Or set them explicitly if needed elsewhere:
       USER_DB_HOST: user-db
       USER_DB_PORT: 5432
+      SPRING_PROFILES_ACTIVE: docker
+      PRODUCT_SERVICE_URL: http://product-service:8082
+      ORDER_SERVICE_URL: http://order-service:8083
     ports:
       - "8081:8081"
     networks:
@@ -93,6 +93,9 @@ services:
 #      SPRING_DATASOURCE_PASSWORD: ${PASSWORD}
 #      PRODUCT_DB_HOST: product-db
 #      PRODUCT_DB_PORT: 5432
+#      SPRING_PROFILES_ACTIVE: docker
+#      USER_SERVICE_URL: http://user-service:8081
+#      ORDER_SERVICE_URL: http://order-service:8083
 #    ports:
 #      - "8082:8082"
 #    networks:
@@ -115,8 +118,9 @@ services:
 #      ORDER_DB_HOST: order-db
 #      ORDER_DB_PORT: 5432
 #      # Service names are used for inter-service communication on the Docker network
-#      USER_SERVICE_BASE_URL: http://user-service:8081
-#      PRODUCT_SERVICE_BASE_URL: http://product-service:8082
+#      SPRING_PROFILES_ACTIVE: docker
+#      USER_SERVICE_URL: http://user-service:8081
+#      PRODUCT_SERVICE_URL: http://product-service:8082
 #    ports:
 #      - "8083:8083"
 #    networks:
