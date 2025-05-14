@@ -33,6 +33,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     //testImplementation 'com.github.tomakehurst:wiremock:3.0.1'
     testImplementation 'org.wiremock.integrations:wiremock-spring-boot:3.9.0'
+    implementation 'com.google.cloud.sql:postgres-socket-factory:1.25.0'
 
 
 }
