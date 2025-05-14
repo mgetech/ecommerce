@@ -1,36 +1,21 @@
-name: Deploy User Service to Cloud Run
+name: Deploy Product Service to Cloud Run
 
 on:
   push:
     branches: [ci/setup-cloud]
-    # Only run the workflow if the commit message contains "[deploy_user_service]"
+    # Only run the workflow if the commit message contains "[deploy_product_service]"
   pull_request:
     branches: [ci/setup-cloud]
 
 
 jobs:
   build-and-deploy:
-    if: contains(github.event.head_commit.message, 'deploy user service')
+    if: contains(github.event.head_commit.message, 'deploy product service')
     runs-on: ubuntu-latest
     env:
-      USER_DB: user_service_db
-      PRODUCT_DB: product_service_db
-      ORDER_DB: order_service_db
-
-      USER: postgres
-      PASSWORD: postgres
-
-      USER_DB_PORT: 5432
-      PRODUCT_DB_PORT: 5432
-      ORDER_DB_PORT: 5432
-
-      USER_DB_HOST: user-db
-      PRODUCT_DB_HOST: product-db
-      ORDER_DB_HOST: order-db
-
       REGION: europe-west3
       REPOSITORY: microservice-repo
-      IMAGE_NAME: user-service
+      IMAGE_NAME: product-service
 
     steps:
       - name: Checkout code
@@ -53,7 +38,7 @@ jobs:
         run: |
           IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
           cd app
-          docker build -t "$IMAGE_URI" ./microservices/user
+          docker build -t "$IMAGE_URI" ./microservices/product
           docker push "$IMAGE_URI"
 
       - name: Deploy to Cloud Run
@@ -64,4 +49,4 @@ jobs:
             --platform=managed \
             --region=${{ env.REGION }} \
             --allow-unauthenticated \
-            --set-env-vars="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=postgres,PRODUCT_SERVICE_URL=app,ORDER_SERVICE_URL=5432"
+            --set-env-vars="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/product_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=postgres,USER_SERVICE_URL=https://user-service-716746262210.europe-west3.run.app,ORDER_SERVICE_URL=5432"
