@@ -33,8 +33,8 @@ public class OrderServiceImpl implements OrderService {
 
     @PostConstruct
     private void init() {
-        this.userBase = env.getProperty("user.service.base-url");
-        this.productBase = env.getProperty("product.service.base-url");
+        this.userBase = env.getProperty("user.service.url");
+        this.productBase = env.getProperty("product.service.url");
     }
 
     @Override

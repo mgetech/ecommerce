@@ -8,13 +8,14 @@ import com.example.order.repository.OrderRepository;
 import com.example.order.service.impl.OrderServiceImpl;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
+@ActiveProfiles("local")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class OrderServiceTest {
 

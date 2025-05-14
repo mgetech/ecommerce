@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 import static com.example.order.entity.OrderStatus.CONFIRMED;
 import static com.example.order.entity.OrderStatus.FAILED;
 
-
+@ActiveProfiles("local")
 @SpringBootTest
 @Rollback(false)
 public class OrderServiceImplTest {
@@ -30,7 +31,7 @@ public class OrderServiceImplTest {
 
     @Test
     public void testCreateOrderSimple(){
-        OrderRequestDTO dto = new OrderRequestDTO(5L,1L,7);
+        OrderRequestDTO dto = new OrderRequestDTO(5L,1L,73);
         System.out.println(orderServiceImpl.createSimpleOrder(dto));
 
     }

@@ -9,10 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.test.context.ActiveProfiles;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("local")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProductControllerIntegrationTest {
@@ -32,7 +34,7 @@ public class ProductControllerIntegrationTest {
     @Test
     @Order(1)
     void testCreateProduct() {
-        ProductRequestDTO request = new ProductRequestDTO("Keyboard10", "Mechanical keyboard", 49.99);
+        ProductRequestDTO request = new ProductRequestDTO("Keyboard", "Mechanical keyboard", 49.99);
         ResponseEntity<ProductResponseDTO> response = restTemplate.postForEntity(baseUrl(), request, ProductResponseDTO.class);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
