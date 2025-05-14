@@ -50,3 +50,4 @@ jobs:
             --region=${{ env.REGION }} \
             --allow-unauthenticated \
             --set-env-vars="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/product_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=postgres,USER_SERVICE_URL=https://user-service-716746262210.europe-west3.run.app,ORDER_SERVICE_URL=https://order-service-716746262210.europe-west3.run.app"
+          
