@@ -12,13 +12,14 @@ RUN apk add --no-cache postgresql-client
 
 # Copy built JAR and wait script
 COPY --from=builder /app/build/libs/*.jar /app/user-service.jar
-COPY wait-for-db.sh /app/wait-for-db.sh
+#COPY wait-for-db.sh /app/wait-for-db.sh
 
 # Make script executable
-RUN chmod +x /app/wait-for-db.sh
+#RUN chmod +x /app/wait-for-db.sh
 # For cloud deployment
 ENV SPRING_PROFILES_ACTIVE=cloud
 EXPOSE 8080
 WORKDIR /app
 
-ENTRYPOINT ["sh", "/app/wait-for-db.sh"]
+#ENTRYPOINT ["sh", "/app/wait-for-db.sh"]
+ENTRYPOINT ["java","-jar","/app/user-service.jar"]
