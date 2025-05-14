@@ -49,12 +49,12 @@ jobs:
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
-      - name: Build & Push Docker image
-        run: |
-          IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          cd app
-          docker build -t "$IMAGE_URI" ./microservices/user
-          docker push "$IMAGE_URI"
+#      - name: Build & Push Docker image
+#        run: |
+#          IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+#          cd app
+#          docker build -t "$IMAGE_URI" ./microservices/user
+#          docker push "$IMAGE_URI"
 
       - name: Deploy to Cloud Run
         run: |
@@ -64,4 +64,4 @@ jobs:
             --platform=managed \
             --region=${{ env.REGION }} \
             --allow-unauthenticated \
-            --set-env-vars="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=postgres"
+            --set-env-vars="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=postgres,USER_DB_HOST=localhost,$USER_DB_PORT=5432"
