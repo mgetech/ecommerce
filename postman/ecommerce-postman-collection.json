@@ -1,0 +1,211 @@
+{
+  "info": {
+    "name": "Cloud-Native E-Commerce Microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User Service",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://user-service-716746262210.europe-west3.run.app/users",
+              "protocol": "https",
+              "host": ["user-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["users"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "https://user-service-716746262210.europe-west3.run.app/users/1",
+              "protocol": "https",
+              "host": ["user-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://user-service-716746262210.europe-west3.run.app/users/1",
+              "protocol": "https",
+              "host": ["user-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["users", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "https://user-service-716746262210.europe-west3.run.app/users/1",
+              "protocol": "https",
+              "host": ["user-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["users", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Product Service",
+      "item": [
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://product-service-716746262210.europe-west3.run.app/products",
+              "protocol": "https",
+              "host": ["product-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["products"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop\",\n  \"price\": 1200.00,\n  \"stock\": 10\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Product",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "https://product-service-716746262210.europe-west3.run.app/products/2",
+              "protocol": "https",
+              "host": ["product-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["products", "2"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://product-service-716746262210.europe-west3.run.app/products/2",
+              "protocol": "https",
+              "host": ["product-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["products", "2"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop Pro\",\n  \"price\": 1400.00,\n  \"stock\": 8\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "https://product-service-716746262210.europe-west3.run.app/products/2",
+              "protocol": "https",
+              "host": ["product-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["products", "2"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order Service",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://order-service-716746262210.europe-west3.run.app/orders",
+              "protocol": "https",
+              "host": ["order-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["orders"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"productId\": 2,\n  \"quantity\": 3\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Order",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "https://order-service-716746262210.europe-west3.run.app/orders/3",
+              "protocol": "https",
+              "host": ["order-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["orders", "3"]
+            }
+          }
+        },
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "https://order-service-716746262210.europe-west3.run.app/orders/3/status?status=CONFIRMED",
+              "protocol": "https",
+              "host": ["order-service-716746262210", "europe-west3", "run", "app"],
+              "path": ["orders", "3", "status"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "CONFIRMED"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
