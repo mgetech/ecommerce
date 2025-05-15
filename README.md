@@ -1,8 +1,8 @@
 # 🛍️ Cloud-Native E-Commerce Microservice Architecture
 
-[![CI/CD](https://github.com/mgetech/ecommerce/actions/workflows/deploy-user-service.yml/badge.svg)](https://github.com/your-username/your-repo-name/actions)
-[![CI/CD](https://github.com/mgetech/ecommerce/actions/workflows/deploy-product-service.yml/badge.svg)](https://github.com/your-username/your-repo-name/actions)
-[![CI/CD](https://github.com/mgetech/ecommerce/actions/workflows/deploy-order-service.yml/badge.svg)](https://github.com/your-username/your-repo-name/actions)
+[![CI/CD](https://github.com/mgetech/ecommerce/actions/workflows/deploy-user-service.yml/badge.svg)](https://github.com/mgetech/ecommerce/actions)
+[![CI/CD](https://github.com/mgetech/ecommerce/actions/workflows/deploy-product-service.yml/badge.svg)](https://github.com/mgetech/ecommerce/actions)
+[![CI/CD](https://github.com/mgetech/ecommerce/actions/workflows/deploy-order-service.yml/badge.svg)](https://github.com/mgetech/ecommerce/actions)
 
 ---
 
@@ -25,7 +25,6 @@ Each microservice is containerized and runs in isolation with its own PostgreSQL
 | CI/CD           | GitHub Actions, deployed to Google Cloud Run          |
 | Code Quality    | SonarCloud (planned), Checkstyle / Spotless (planned) |
 
----
 
 ## 🧩 Microservices
 
@@ -64,7 +63,7 @@ This project is deployed to Google Cloud Run. You can interact with the services
 
 | Service         | Base URL                                                                 |
 |-----------------|--------------------------------------------------------------------------|
-| 🧑‍💼 User Service    | `https://user-service-716746262210.europe-west3.run.app`               |
+| 🧑‍ User Service    | `https://user-service-716746262210.europe-west3.run.app`               |
 | 📦 Product Service | `https://product-service-716746262210.europe-west3.run.app`            |
 | 🛒 Order Service   | `https://order-service-716746262210.europe-west3.run.app`              |
 
