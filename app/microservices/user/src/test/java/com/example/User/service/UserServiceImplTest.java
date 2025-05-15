@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import lombok.AllArgsConstructor;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 @AllArgsConstructor
 @SpringBootTest
 public class UserServiceImplTest {

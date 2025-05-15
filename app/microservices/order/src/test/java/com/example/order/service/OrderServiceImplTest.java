@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import static com.example.order.entity.OrderStatus.CONFIRMED;
 import static com.example.order.entity.OrderStatus.FAILED;
 
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 @SpringBootTest
 @Rollback(false)
 public class OrderServiceImplTest {

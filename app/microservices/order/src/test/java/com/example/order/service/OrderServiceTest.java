@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class OrderServiceTest {
 

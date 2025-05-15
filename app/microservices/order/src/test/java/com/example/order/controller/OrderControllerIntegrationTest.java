@@ -19,7 +19,7 @@ import org.wiremock.spring.InjectWireMock;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableWireMock({
         @ConfigureWireMock(name = "user-service", port = 8081),
