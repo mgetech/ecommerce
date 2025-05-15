@@ -42,4 +42,10 @@ tasks.named('test') {
 }
 
 
+test {
+	testLogging {
+		// show standard out and err for all tests
+		showStandardStreams = true
+	}
+}
 
