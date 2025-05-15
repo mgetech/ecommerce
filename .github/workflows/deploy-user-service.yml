@@ -57,7 +57,7 @@ jobs:
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: postgres
         run: |
-          cd microservices/user
+          cd app/microservices/user
           ./gradlew test
 
       - name: Authenticate to Google Cloud
