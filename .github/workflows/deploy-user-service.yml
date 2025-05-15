@@ -58,7 +58,7 @@ jobs:
           SPRING_DATASOURCE_PASSWORD: postgres
         run: |
           cd app/microservices/user
-          ./gradlew test
+          bash gradlew test
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
