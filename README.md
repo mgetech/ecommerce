@@ -17,15 +17,15 @@ Each microservice is containerized and runs in isolation with its own PostgreSQL
 
 ## 🧰 Tech Stack
 
-| Layer           | Technologies                                          |
-|----------------|-------------------------------------------------------|
-| Language        | Java 21, Spring Boot                                  |
-| Build Tool      | Gradle                                                |
-| Containerization| Docker, Docker Compose                                |
-| Database        | PostgreSQL (one per service)                          |
-| CI/CD           | GitHub Actions, deployed to Google Cloud Run          |
-| API Docs         | Swagger UI (SpringDoc OpenAPI)                              |
-| Code Quality    | SonarCloud (planned), Checkstyle / Spotless (planned) |
+| Layer           | Technologies                                         |
+|----------------|------------------------------------------------------|
+| Language        | Java 21, Spring Boot                                 |
+| Build Tool      | Gradle                                               |
+| Containerization| Docker, Docker Compose                               |
+| Database        | PostgreSQL (one per service)                         |
+| CI/CD           | GitHub Actions, deployed to Google Cloud Run         |
+| API Docs         | Swagger UI (SpringDoc OpenAPI)                       |
+| Code Quality    | SonarCloud (active), Checkstyle / Spotless (planned) |
 
 
 ## 🧩 Microservices
