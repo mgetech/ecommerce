@@ -23,6 +23,7 @@ Each microservice is containerized and runs in isolation with its own PostgreSQL
 | Containerization| Docker, Docker Compose                                |
 | Database        | PostgreSQL (one per service)                          |
 | CI/CD           | GitHub Actions, deployed to Google Cloud Run          |
+| API Docs         | Swagger UI (SpringDoc OpenAPI)                              |
 | Code Quality    | SonarCloud (planned), Checkstyle / Spotless (planned) |
 
 
@@ -55,26 +56,20 @@ Each service is fully decoupled and follows the [database-per-service](https://m
 
 ## 🌐 Live Access
 
-This project is deployed to Google Cloud Run. You can interact with the services directly using HTTP.
+
+This project is deployed on Google Cloud Run, and each microservice is publicly accessible. You can interact with the APIs directly or explore them via Swagger UI.
 
 ---
 
 ### 🔗 Service URLs
 
-| Service         | Base URL                                                                 |
-|-----------------|--------------------------------------------------------------------------|
-| 🧑‍ User Service    | `https://user-service-716746262210.europe-west3.run.app`               |
-| 📦 Product Service | `https://product-service-716746262210.europe-west3.run.app`            |
-| 🛒 Order Service   | `https://order-service-716746262210.europe-west3.run.app`              |
+| Service         | Base URL                                                                 | Swagger UI           |
+|-----------------|--------------------------------------------------------------------------|----------------------|
+| 🧑‍ User Service    | `https://user-service-716746262210.europe-west3.run.app`               | [User API Docs](https://user-service-716746262210.europe-west3.run.app/swagger-ui.html)    |
+| 📦 Product Service | `https://product-service-716746262210.europe-west3.run.app`            | [Product API Docs](https://product-service-716746262210.europe-west3.run.app/swagger-ui.html) |
+| 🛒 Order Service   | `https://order-service-716746262210.europe-west3.run.app`              | [Order API Docs](https://order-service-716746262210.europe-west3.run.app/swagger-ui.html)   |
 
----
 
-### 🧪 Sample: Get User by ID
-
-```http
-GET https://user-service-716746262210.europe-west3.run.app/users/1
-Accept: application/json
-```
 ### 🛒 Create an Order (End-to-End Example)
 
 Below is the most important flow — placing an order — which interacts with all three services:
@@ -89,11 +84,6 @@ Content-Type: application/json
 }
 ```
 ✅ This will create an order that references existing user and product IDs.
-
----
-### 📬 More Endpoints
-
-A complete set of endpoints (for CRUD operations) is available in the [Postman Collection](./postman/ecommerce-postman-collection.json). You can import it into Postman to test everything easily.
 
 ---
 ## To run locally:
