@@ -25,7 +25,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(request));
     }
 
-    @Operation(summary = "Get order by ID", description = "Fetches order details by order ID")
+    @Operation(summary = "Get order by ID", description = "Fetches order details by order ID  - it already has 3 orders in the database.")
     @GetMapping("/{id}")
     public OrderResponseDTO get(@PathVariable Long id) {
         return orderService.getOrder(id);

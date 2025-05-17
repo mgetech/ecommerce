@@ -25,7 +25,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.create(request));
     }
 
-    @Operation(summary = "Get product by ID", description = "Retrieves product details by ID")
+    @Operation(summary = "Get product by ID", description = "Retrieves product details by ID  - it already has 3 products in the database.")
     @GetMapping("/{id}")
     public ProductResponseDTO get(@PathVariable Long id) {
         return productService.getById(id);

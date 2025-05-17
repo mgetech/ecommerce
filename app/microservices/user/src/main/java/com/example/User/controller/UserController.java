@@ -24,7 +24,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(request));
     }
 
-    @Operation(summary = "Get user by ID", description = "Fetch a user by their unique ID")
+    @Operation(summary = "Get user by ID", description = "Fetch a user by their unique ID - it already has 3 users in the database.")
     @GetMapping("/{id}")
     public UserResponseDTO get(@PathVariable Long id) {
         return userService.getById(id);
