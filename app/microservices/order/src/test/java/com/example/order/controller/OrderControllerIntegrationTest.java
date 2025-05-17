@@ -57,5 +57,6 @@ class OrderControllerIntegrationTest {
                 .value(body -> {
                     Assertions.assertTrue(body.contains("PENDING"));
                 });
+
     }
 }
