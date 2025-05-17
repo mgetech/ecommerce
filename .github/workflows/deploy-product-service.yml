@@ -2,10 +2,10 @@ name: Deploy Product Service to Cloud Run
 
 on:
   push:
-    branches: [ci/setup-cloud]
+    branches: [main]
     # Only run the workflow if the commit message contains "[deploy_product_service]"
   pull_request:
-    branches: [ci/setup-cloud]
+    branches: [main]
 
 
 jobs:
