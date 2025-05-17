@@ -3,6 +3,7 @@
 [![CI/CD](https://github.com/mgetech/ecommerce/actions/workflows/deploy-user-service.yml/badge.svg)](https://github.com/mgetech/ecommerce/actions)
 [![CI/CD](https://github.com/mgetech/ecommerce/actions/workflows/deploy-product-service.yml/badge.svg)](https://github.com/mgetech/ecommerce/actions)
 [![CI/CD](https://github.com/mgetech/ecommerce/actions/workflows/deploy-order-service.yml/badge.svg)](https://github.com/mgetech/ecommerce/actions)
+[![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=mgetech_ecommerce&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mgetech_ecommerce)
 
 ---
 
