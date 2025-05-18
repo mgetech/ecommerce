@@ -61,7 +61,7 @@ jobs:
           bash gradlew test
 
 
-      - name: SonarCloud Scan 
+      - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
           projectBaseDir: app/microservices/order

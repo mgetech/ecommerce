@@ -61,13 +61,14 @@ jobs:
           cd app/microservices/product
           bash gradlew test
 
-      - name: SonarCloud Scan
+      - name: SonarCloud Scan 
         uses: SonarSource/sonarcloud-github-action@v2
         with:
           projectBaseDir: app/microservices/product
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io
+
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
