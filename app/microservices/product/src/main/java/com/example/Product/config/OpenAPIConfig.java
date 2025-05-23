@@ -19,9 +19,9 @@ public class OpenAPIConfig {
                         .version("1.0")
                         .description("Handles product creation and management"))
                 .servers(List.of(
-                        new Server().url("https://product-service-716746262210.europe-west3.run.app"), // Could
+                        new Server().url("https://product-service-716746262210.europe-west3.run.app"), // Cloud
                         new Server().url("http://localhost:8082"),  // Local dev
-                        new Server().url("http://product-service:8082")  // Docer dev
+                        new Server().url("http://product-service:8082")  // Docker dev
 
 
                 ));

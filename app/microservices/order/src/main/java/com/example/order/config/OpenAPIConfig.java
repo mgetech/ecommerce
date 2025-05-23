@@ -19,9 +19,9 @@ public class OpenAPIConfig {
                         .version("1.0")
                         .description("Handles order placement and management"))
                 .servers(List.of(
-                        new Server().url("https://order-service-716746262210.europe-west3.run.app"), // Could
+                        new Server().url("https://order-service-716746262210.europe-west3.run.app"), // Cloud
                         new Server().url("http://localhost:8083"),  // Local dev
-                        new Server().url("http://order-service:8083")  // Docer dev
+                        new Server().url("http://order-service:8083")  // Docker dev
 
 
                 ));

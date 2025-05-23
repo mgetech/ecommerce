@@ -19,9 +19,9 @@ public class OpenAPIConfig {
                         .version("1.0")
                         .description("Handles user registration and management"))
                 .servers(List.of(
-                        new Server().url("https://user-service-716746262210.europe-west3.run.app"), // Could
+                        new Server().url("https://user-service-716746262210.europe-west3.run.app"), // Cloud
                         new Server().url("http://localhost:8081"),  // Local dev
-                        new Server().url("http://user-service:8081")  // Docer dev
+                        new Server().url("http://user-service:8081")  // Docker dev
 
 
                 ));
