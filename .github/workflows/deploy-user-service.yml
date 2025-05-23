@@ -1,11 +1,11 @@
-name: Deploy User Service to Cloud Run
+name: Deploy User Service to Cloud
 
 on:
   push:
-    branches: [main]
+    branches: [ci/setup-cloud]
     # Only run the workflow if the commit message contains "[deploy_user_service]"
   pull_request:
-    branches: [main]
+    branches: [ci/setup-cloud]
 
 
 jobs:
@@ -83,17 +83,42 @@ jobs:
 
       - name: Build & Push Docker image
         run: |
-          IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}
           cd app
-          docker build -t "$IMAGE_URI" ./microservices/user
-          docker push "$IMAGE_URI"
+          docker build -t "$IMAGE_URI:latest" ./microservices/user
+          docker tag "$IMAGE_URI:latest" "$IMAGE_URI:${{ github.sha }}"
+          docker push "$IMAGE_URI:latest"
+          docker push "$IMAGE_URI:${{ github.sha }}"
 
-      - name: Deploy to Cloud Run
+      - name: Get GKE credentials
         run: |
-          IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          gcloud run deploy ${{ env.IMAGE_NAME }} \
-            --image="$IMAGE_URI" \
-            --platform=managed \
+          gcloud container clusters get-credentials ecommerce-cluster \
             --region=${{ env.REGION }} \
-            --allow-unauthenticated \
-            --set-env-vars="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=postgres,PRODUCT_SERVICE_URL=https://product-service-716746262210.europe-west3.run.app,ORDER_SERVICE_URL=https://order-service-716746262210.europe-west3.run.app"
+            --project=${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Set image in deployment (Rolling Update)
+        run: |
+          kubectl set image deployment/user-service user=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+
+
+###    The jobs to deploy to Cloud Run
+
+#      - name: Build & Push Docker image
+#        run: |
+#          IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+#          cd app
+#          docker build -t "$IMAGE_URI" ./microservices/user
+#          docker push "$IMAGE_URI"
+
+#      - name: Deploy to Cloud Run
+#        run: |
+#          IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+#          gcloud run deploy ${{ env.IMAGE_NAME }} \
+#            --image="$IMAGE_URI" \
+#            --platform=managed \
+#            --region=${{ env.REGION }} \
+#            --allow-unauthenticated \
+#            --set-env-vars="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=postgres,PRODUCT_SERVICE_URL=https://product-service-716746262210.europe-west3.run.app,ORDER_SERVICE_URL=https://order-service-716746262210.europe-west3.run.app"
+
+

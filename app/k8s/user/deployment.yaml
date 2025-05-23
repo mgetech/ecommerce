@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user
+          image: europe-west3-docker.pkg.dev/ecommerce-first-459417/microservice-repo/user-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://localhost:5432/user_service_db
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: postgres
+            - name: PRODUCT_SERVICE_URL
+              value: http://product-service:8080
+            - name: ORDER_SERVICE_URL
+              value: http://order-service:8080
+      # Cloud SQL Proxy as sidecar
+      containers:
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.33.0
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances=ecommerce-first-459417:REGION:INSTANCE_ID=tcp:5432"
+          securityContext:
+            runAsNonRoot: true
