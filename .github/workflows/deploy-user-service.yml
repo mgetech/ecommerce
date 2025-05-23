@@ -93,8 +93,8 @@ jobs:
       - name: Install gke-gcloud-auth-plugin
         run: |
           gcloud components install gke-gcloud-auth-plugin --quiet
-          echo "use_gke_gcloud_auth_plugin = True" >> ~/.kube/config
-          
+
+
       - name: Get GKE credentials
         run: |
           gcloud container clusters get-credentials ecommerce-cluster \
