@@ -3,7 +3,7 @@ name: Deploy User Service to Cloud
 on:
   push:
     branches: [ci/setup-cloud]
-    # Only run the workflow if the commit message contains "[deploy_user_service]"
+    # Only run the workflow if the commit message contains "[deploy user service]"
   pull_request:
     branches: [ci/setup-cloud]
 
@@ -90,6 +90,11 @@ jobs:
           docker push "$IMAGE_URI:latest"
           docker push "$IMAGE_URI:${{ github.sha }}"
 
+      - name: Install gke-gcloud-auth-plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin --quiet
+          echo "use_gke_gcloud_auth_plugin = True" >> ~/.kube/config
+          
       - name: Get GKE credentials
         run: |
           gcloud container clusters get-credentials ecommerce-cluster \
