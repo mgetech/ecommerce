@@ -11,23 +11,25 @@
 
 ## 📦 Overview
 
-This repository contains a **cloud-native e-commerce system** built using a microservices architecture. It’s designed as a professional-grade portfolio project to demonstrate backend and DevOps engineering skills, with CI/CD automation and deployment to Google Cloud Run.
+This repository contains a **cloud-native e-commerce system** built using a modular microservice architecture. It’s designed as a professional-grade **portfolio project** to showcase backend and DevOps engineering skills, featuring CI/CD automation, code quality checks, and deployment to **Google Cloud Run** and **Google Kubernetes Engine (GKE)**.
 
-Each microservice is containerized and runs in isolation with its own PostgreSQL database, orchestrated via Docker Compose.
+Each microservice runs in its own Docker container with a dedicated PostgreSQL database. Services are orchestrated locally via Docker Compose and can be deployed to GKE for cloud-native scalability.
 
 ---
 
 ## 🧰 Tech Stack
 
-| Layer           | Technologies                                         |
-|----------------|------------------------------------------------------|
-| Language        | Java 21, Spring Boot                                 |
-| Build Tool      | Gradle                                               |
-| Containerization| Docker, Docker Compose                               |
-| Database        | PostgreSQL (one per service)                         |
-| CI/CD           | GitHub Actions, deployed to Google Cloud Run         |
-| API Docs         | Swagger UI (SpringDoc OpenAPI)                       |
-| Code Quality    | SonarCloud (active), Checkstyle / Spotless (planned) |
+| Layer                | Technologies                                               |
+|----------------------|------------------------------------------------------------|
+| Language             | Java 21, Spring Boot                                       |
+| Build Tool           | Gradle                                                     |
+| Containerization     | Docker, Docker Compose                                     |
+| Database             | PostgreSQL (one per service)                               |
+| Orchestration & Deployment | Kubernetes (GKE), Google Cloud Run                    |
+| CI/CD                | GitHub Actions                                              |
+| API Docs             | Swagger UI (SpringDoc OpenAPI)                             |
+| Code Quality         | SonarCloud (active), Checkstyle / Spotless (planned)       |
+
 
 
 ## 🧩 Microservices
@@ -44,12 +46,23 @@ Each service is fully decoupled and follows the [database-per-service](https://m
 
 ## 🚀 Features
 
-- ✅ Modular microservice design
-- ✅ Each service containerized with Docker
-- ✅ Local orchestration via Docker Compose
-- ✅ CI/CD pipeline with automated testing, build, and deploy
-- ✅ Live endpoints planned for public testing
-- 🛠️ Continuously evolving with more integrations and features
+✅ Modular microservice architecture (User, Product, Order)
+
+✅ Each service containerized with Docker
+
+✅ Local orchestration with Docker Compose
+
+✅ CI/CD with GitHub Actions: test, build, deploy pipelines
+
+✅ Live public endpoints for real-time testing
+
+✅ API documentation via Swagger UI
+
+✅ SonarCloud integration for code quality
+
+✅ Deployable to both Cloud Run and GKE (Kubernetes)
+
+🛠️ Continuously evolving with integrations like Redis, Kafka, and Grafana
 
 ---
 

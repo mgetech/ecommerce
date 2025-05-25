@@ -18,6 +18,11 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/")
+    public ResponseEntity<String> root() {
+        return ResponseEntity.ok("OK");
+    }
+
     @Operation(summary = "Create a new user", description = "Creates a new user and returns the created user details")
     @PostMapping
     public ResponseEntity<UserResponseDTO> create(@RequestBody @Valid UserRequestDTO request) {
