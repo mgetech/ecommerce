@@ -1,0 +1,12 @@
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+  name: user-backendconfig
+spec:
+  healthCheck:
+    # probe every 10s, allow 1 success, 3 failures, 5s timeout
+    checkIntervalSec: 10
+    healthyThreshold: 1
+    unhealthyThreshold: 3
+    timeoutSec: 5
+    requestPath: /actuator/health/readiness
