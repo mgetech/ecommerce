@@ -1,7 +1,6 @@
-package com.example.User.controller;
+package com.example.user.controller;
 
-import com.example.User.dto.*;
-import com.example.User.repository.UserRepository;
+import com.example.user.dto.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -64,7 +63,7 @@ public class UserControllerIntegrationTest {
     @Test
     @Order(3)
     void testInvalidEmailShouldFail() {
-        UserRequestDTO badRequest = new UserRequestDTO("Invalid User", "bad-email");
+        UserRequestDTO badRequest = new UserRequestDTO("Invalid user", "bad-email");
 
         ResponseEntity<String> response = restTemplate.postForEntity(baseUrl, badRequest, String.class);
 
@@ -78,7 +77,7 @@ public class UserControllerIntegrationTest {
         ResponseEntity<String> response = restTemplate.getForEntity(baseUrl + "/999999", String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        assertThat(response.getBody()).contains("User not found");
+        assertThat(response.getBody()).contains("user not found");
     }
 
 

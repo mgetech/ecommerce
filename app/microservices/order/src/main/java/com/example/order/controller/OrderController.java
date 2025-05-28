@@ -19,7 +19,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @Operation(summary = "Create a new order", description = "Creates an order by getting userID and productID validation from User and Product services.")
+    @Operation(summary = "Create a new order", description = "Creates an order by getting userID and productID validation from user and Product services.")
     @PostMapping
     public ResponseEntity<OrderResponseDTO> create(@RequestBody @Valid OrderRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(request));

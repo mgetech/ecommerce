@@ -64,7 +64,7 @@ class OrderServiceTest {
                 .when(requestHeadersUriSpec)
                 .uri(anyString(), ArgumentMatchers.<Object>any());   // ← varargs stub
         doReturn(responseSpec).when(requestHeadersSpec).retrieve();
-        doReturn(Mono.just("User found"))
+        doReturn(Mono.just("user found"))
                 .when(responseSpec).bodyToMono(String.class);
 
         // stub product‑service call the same way

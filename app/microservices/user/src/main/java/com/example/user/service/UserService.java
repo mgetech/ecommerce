@@ -1,6 +1,6 @@
-package com.example.User.service;
+package com.example.user.service;
 
-import com.example.User.dto.*;
+import com.example.user.dto.*;
 
 public interface UserService {
     UserResponseDTO create(UserRequestDTO request);

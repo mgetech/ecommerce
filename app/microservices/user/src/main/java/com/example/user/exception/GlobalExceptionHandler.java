@@ -1,4 +1,4 @@
-package com.example.User.exception;
+package com.example.user.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.MethodArgumentNotValidException;
