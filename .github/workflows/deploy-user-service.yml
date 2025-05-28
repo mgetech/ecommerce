@@ -110,7 +110,7 @@ jobs:
             --platform=managed \
             --region=${{ env.REGION }} \
             --allow-unauthenticated \
-            --set-env-vars="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=postgres,PRODUCT_SERVICE_URL=https://product-service-716746262210.europe-west3.run.app,ORDER_SERVICE_URL=https://order-service-716746262210.europe-west3.run.app,,SPRING_REDIS_URL=rediss://:${{ secrets.REDIS_PASSWORD }}@select-zebra-41299.upstash.io:6379""
+            --set-env-vars="SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/user_service_db?cloudSqlInstance=${{ secrets.GCP_SQL_CONNECTION_NAME }}&socketFactory=com.google.cloud.sql.postgres.SocketFactory,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=postgres,PRODUCT_SERVICE_URL=https://product-service-716746262210.europe-west3.run.app,ORDER_SERVICE_URL=https://order-service-716746262210.europe-west3.run.app,SPRING_REDIS_URL=rediss://:${{ secrets.REDIS_PASSWORD }}@select-zebra-41299.upstash.io:6379"
 
 
 ###    The jobs to deploy to GKE
