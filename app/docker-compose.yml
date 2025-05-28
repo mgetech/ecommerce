@@ -57,6 +57,7 @@ services:
         container_name: user-service
         depends_on:
             - user-db
+            - redis
         environment:
             SPRING_DATASOURCE_URL: jdbc:postgresql://${USER_DB_HOST}:${USER_DB_PORT}/${USER_DB}
             SPRING_DATASOURCE_USERNAME: ${USER}
@@ -106,3 +107,10 @@ services:
             PRODUCT_SERVICE_URL: http://product-service:8082
         ports:
             - "8083:8083"
+
+    redis:
+        image: redis:latest
+        container_name: redis
+        ports:
+            - "6379:6379"
+

@@ -1,8 +1,8 @@
-package com.example.User.service;
+package com.example.user.service;
 
 
-import com.example.User.dto.UserRequestDTO;
-import com.example.User.service.impl.UserServiceImpl;
+import com.example.user.dto.UserRequestDTO;
+import com.example.user.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

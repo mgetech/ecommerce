@@ -6,6 +6,7 @@
 [![User Service Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=mgetech_ecommerce_user&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mgetech_ecommerce_user)
 [![Product Service Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=mgetech_ecommerce_product&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mgetech_ecommerce_product)
 [![Order Service Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=mgetech_ecommerce_order&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mgetech_ecommerce_order)
+![Redis](https://img.shields.io/badge/cache-redis-red?logo=redis)
 
 ---
 
@@ -19,16 +20,17 @@ Each microservice runs in its own Docker container with a dedicated PostgreSQL d
 
 ## 🧰 Tech Stack
 
-| Layer                | Technologies                                               |
-|----------------------|------------------------------------------------------------|
-| Language             | Java 21, Spring Boot                                       |
-| Build Tool           | Gradle                                                     |
-| Containerization     | Docker, Docker Compose                                     |
-| Database             | PostgreSQL (one per service)                               |
-| Orchestration & Deployment | Kubernetes (GKE), Google Cloud Run                    |
-| CI/CD                | GitHub Actions                                              |
-| API Docs             | Swagger UI (SpringDoc OpenAPI)                             |
-| Code Quality         | SonarCloud (active), Checkstyle / Spotless (planned)       |
+| Layer                      | Technologies                                         |
+|----------------------------|------------------------------------------------------|
+| Language                   | Java 21, Spring Boot                                 |
+| Build Tool                 | Gradle                                               |
+| Containerization           | Docker, Docker Compose                               |
+| Database                   | PostgreSQL (one per service)                         |
+| Caching                    | Redis                                                |
+| Orchestration & Deployment | Kubernetes (GKE), Google Cloud Run                   |
+| CI/CD                      | GitHub Actions                                       |
+| API Docs                   | Swagger UI (SpringDoc OpenAPI)                       |
+| Code Quality               | SonarCloud (active), Checkstyle / Spotless (planned) |
 
 
 
@@ -61,6 +63,8 @@ Each service is fully decoupled and follows the [database-per-service](https://m
 ✅ SonarCloud integration for code quality
 
 ✅ Deployable to both Cloud Run and GKE (Kubernetes)
+
+✅ Redis caching layer for performance optimization
 
 🛠️ Continuously evolving with integrations like Redis, Kafka, and Grafana
 

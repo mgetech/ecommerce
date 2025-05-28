@@ -67,18 +67,18 @@ public class OrderServiceImpl implements OrderService {
                     .uri(userBase + "/users/{id}", request.getUserId())
                     .retrieve()
                     .onStatus(status -> status.is4xxClientError(), response -> {
-                        log.info("User not found: {}", response.statusCode());
-                        return Mono.error(new ExternalServiceException("User not found"));
+                        log.info("user not found: {}", response.statusCode());
+                        return Mono.error(new ExternalServiceException("user not found"));
                     })
                     .onStatus(status -> status.is5xxServerError(), response -> {
-                        log.info("User service error: {}", response.statusCode());
-                        return Mono.error(new ExternalServiceException("User service unavailable"));
+                        log.info("user service error: {}", response.statusCode());
+                        return Mono.error(new ExternalServiceException("user service unavailable"));
                     })
                     .bodyToMono(String.class)
                     .block();
         } catch (Exception e) {
-            log.info("User service call failed: {}", e.getMessage());
-            throw new ExternalServiceException("User service unavailable");
+            log.info("user service call failed: {}", e.getMessage());
+            throw new ExternalServiceException("user service unavailable");
         }
 
         // 2. Validate product

@@ -1,4 +1,4 @@
-package com.example.User.config;
+package com.example.user.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -15,7 +15,7 @@ public class OpenAPIConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("User Service API")
+                        .title("user Service API")
                         .version("1.0")
                         .description("Handles user registration and management"))
                 .servers(List.of(

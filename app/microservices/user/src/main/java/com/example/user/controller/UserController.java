@@ -1,8 +1,7 @@
-package com.example.User.controller;
+package com.example.user.controller;
 
-import com.example.User.service.UserService;
-import com.example.User.dto.*;
-import com.example.User.service.UserService;
+import com.example.user.service.UserService;
+import com.example.user.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
@@ -13,15 +12,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-@Tag(name = "User API", description = "Operations related to user accounts")
+@Tag(name = "user API", description = "Operations related to user accounts")
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/")
-    public ResponseEntity<String> root() {
-        return ResponseEntity.ok("OK");
-    }
 
     @Operation(summary = "Create a new user", description = "Creates a new user and returns the created user details")
     @PostMapping
