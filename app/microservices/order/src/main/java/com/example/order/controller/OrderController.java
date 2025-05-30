@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/orders")
@@ -23,6 +24,13 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderResponseDTO> create(@RequestBody @Valid OrderRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(request));
+    }
+
+    @Operation(summary = "Create a new order Asynchronously", description = "Creates an order by publishing an event to Kafka. The order is confirmed only after user and product validation events are received asynchronously from user and product services.")
+    @PostMapping("/async")
+    public Mono<ResponseEntity<OrderResponseDTO>> createAsync(@RequestBody @Valid OrderRequestDTO request) {
+        return orderService.createOrderAsync(request)
+                .map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp));
     }
 
     @Operation(summary = "Get order by ID", description = "Fetches order details by order ID  - it already has 3 orders in the database.")

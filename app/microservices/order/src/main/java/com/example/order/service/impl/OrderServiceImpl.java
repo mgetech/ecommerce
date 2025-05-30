@@ -4,13 +4,17 @@ import com.example.order.dto.OrderRequestDTO;
 import com.example.order.dto.OrderResponseDTO;
 import com.example.order.entity.OrderEntity;
 import com.example.order.entity.OrderStatus;
+import com.example.order.event.OrderRequested;
 import com.example.order.exception.ExternalServiceException;
 import com.example.order.exception.OrderNotFoundException;
+import com.example.order.mapper.OrderMapper;
 import com.example.order.repository.OrderRepository;
 import com.example.order.service.OrderService;
+import com.example.order.util.Correlator;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,6 +23,7 @@ import org.springframework.core.env.Environment;
 
 
 import java.time.LocalDateTime;
+
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
     private final Environment env;
     private String userBase;
     private String productBase;
+    private final OrderMapper orderMapper;
 
     @PostConstruct
     private void init() {
@@ -52,9 +58,12 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         order = orderRepository.save(order);
-        return toResponse(order);
+        return orderMapper.toResponse(order);
+
     }
 
+
+    // Synchronized architecture
     @Override
     public OrderResponseDTO createOrder(OrderRequestDTO request) {
         log.info("Creating order for user {} and product {}", request.getUserId(), request.getProductId());
@@ -112,14 +121,45 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepository.save(orderEntity);
 
-        return toResponse(orderEntity);
+        return orderMapper.toResponse(orderEntity);
     }
+
+    // Asynchronized architecture using Kafka
+
+    private final KafkaTemplate<Long, Object> kafkaTemplate;
+    private final Correlator correlator;
+
+    public Mono<OrderResponseDTO> createOrderAsync(OrderRequestDTO request) {
+
+        OrderEntity order = OrderEntity.builder()
+                .userId(request.getUserId())
+                .productId(request.getProductId())
+                .quantity(request.getQuantity())
+                .status(OrderStatus.PENDING)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        OrderEntity saved = orderRepository.save(order);
+        Long orderId = saved.getId(); // Use as Kafka key
+
+        OrderRequested event = new OrderRequested(orderId, request.getUserId(), request.getProductId(), request.getQuantity());
+        kafkaTemplate.send("order.requested", orderId, event);
+
+        return correlator.registerMono(orderId)
+                .doOnNext(finalEvt -> {
+                    order.setStatus(finalEvt.confirmed() ? OrderStatus.CONFIRMED : OrderStatus.FAILED);
+                    orderRepository.save(order);
+                })
+                .map(evt -> orderMapper.toResponse(order));
+    }
+
+
 
     @Override
     public OrderResponseDTO getOrder(Long id) {
         OrderEntity orderEntity = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException("Order not found with ID " + id));
-        return toResponse(orderEntity);
+        return orderMapper.toResponse(orderEntity);
     }
 
     @Override
@@ -128,17 +168,8 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new OrderNotFoundException("Order not found with id " + id));
         orderEntity.setStatus(newStatus);
         orderRepository.save(orderEntity);
-        return toResponse(orderEntity);
+        return orderMapper.toResponse(orderEntity);
     }
 
-    private OrderResponseDTO toResponse(OrderEntity orderEntity) {
-        return OrderResponseDTO.builder()
-                .id(orderEntity.getId())
-                .userId(orderEntity.getUserId())
-                .productId(orderEntity.getProductId())
-                .quantity(orderEntity.getQuantity())
-                .status(orderEntity.getStatus())
-                .createdAt(orderEntity.getCreatedAt())
-                .build();
-    }
+
 }

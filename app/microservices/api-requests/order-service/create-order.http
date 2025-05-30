@@ -1,9 +1,9 @@
 ### Creates a new order
-POST http://localhost:8083/orders
+POST http://localhost:8083/orders/async
 Content-Type: application/json
 
 {
   "userId": 4,
-  "productId": 4,
-  "quantity": 133
+  "productId": 3,
+  "quantity": 222
 }

@@ -41,6 +41,9 @@ dependencies {
 	// Optional: for configuration properties
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	//implementation project(':common')
+
+	implementation 'org.springframework.kafka:spring-kafka'
+
 }
 
 tasks.named('test') {
