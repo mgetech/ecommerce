@@ -126,7 +126,7 @@ public class OrderServiceImpl implements OrderService {
 
     // Asynchronized architecture using Kafka
 
-    private final KafkaTemplate<Long, Object> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
     private final Correlator correlator;
 
     public Mono<OrderResponseDTO> createOrderAsync(OrderRequestDTO request) {
@@ -140,9 +140,9 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         OrderEntity saved = orderRepository.save(order);
-        Long orderId = saved.getId(); // Use as Kafka key
+        String orderId = String.valueOf(saved.getId()); // Use as Kafka key
 
-        OrderRequested event = new OrderRequested(orderId, request.getUserId(), request.getProductId(), request.getQuantity());
+        OrderRequested event = new OrderRequested(orderId, String.valueOf(request.getUserId()), String.valueOf(request.getProductId()), request.getQuantity());
         kafkaTemplate.send("order.requested", orderId, event);
 
         return correlator.registerMono(orderId)

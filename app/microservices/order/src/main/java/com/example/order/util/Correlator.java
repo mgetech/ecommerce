@@ -16,44 +16,52 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class Correlator {
 
-    private record State(boolean userOk, boolean prodOk, String reason) {}
+    private record State(Boolean userOk, Boolean prodOk, String reason) {}
 
-    private final Map<Long, State> states = new ConcurrentHashMap<>();
+    private final Map<String, State> states = new ConcurrentHashMap<>();
 
-    Map<Long, Sinks.One<OrderFinalized>> sinks = new ConcurrentHashMap<>();
+    Map<String, Sinks.One<OrderFinalized>> sinks = new ConcurrentHashMap<>();
 
-    public Mono<OrderFinalized> registerMono(Long orderId) {
+    public Mono<OrderFinalized> registerMono(String orderId) {
         Sinks.One<OrderFinalized> sink = Sinks.one();
         sinks.put(orderId, sink);
         return sink.asMono();
     }
 
 
-    @KafkaListener(topics = "order.user-validated", groupId = "order-service")
+    @KafkaListener(topics = "order.user-validated", containerFactory = "userValidatedListenerContainer")
     public void onUserValidated(OrderUserValidated event) {
+
         handle(event.orderId(), event.ok(), event.reason(), true);
     }
 
-    @KafkaListener(topics = "order.product-validated", groupId = "order-service")
+    @KafkaListener(topics = "order.product-validated", containerFactory = "productValidatedListenerContainer")
     public void onProductValidated(OrderProductValidated event) {
         handle(event.orderId(), event.ok(), event.reason(), false);
     }
 
-    private void handle(Long id, boolean ok, String reason, boolean isUser) {
+    private void handle(String id, boolean ok, String reason, boolean isUser) {
         states.merge(id,
-                new State(isUser ? ok : false, isUser ? false : ok, reason),
-                (old, nxt) -> new State(
-                        isUser ? ok : old.userOk,
-                        isUser ? old.prodOk : ok,
-                        !ok ? reason : old.reason));
+                // if no existing State: initialize one side to ok, the other to null
+                new State(isUser ? ok : null, isUser ? null : ok, reason),
+                (old, nxt) -> {
+                    Boolean newUserOk = isUser ? ok : old.userOk;
+                    Boolean newProdOk = isUser ? old.prodOk : ok;
+                    String  newReason = !ok ? reason : old.reason;
+                    return new State(newUserOk, newProdOk, newReason);
+                }
+        );
 
         State s = states.get(id);
-        if ((s.userOk && s.prodOk) || (!s.userOk || !s.prodOk)) {
+        // Only finalize when both sides are non-null (i.e. we've gotten both events)
+        if (s.userOk != null && s.prodOk != null) {
             boolean confirmed = s.userOk && s.prodOk;
             OrderFinalized finalEvt = new OrderFinalized(id, confirmed, confirmed ? null : s.reason);
             if (sinks.containsKey(id)) {
                 sinks.remove(id).tryEmitValue(finalEvt);
             }
+            // Optionally: cleanup `states.remove(id)` if you don’t need to track it anymore
         }
     }
+
 }

@@ -1,4 +1,4 @@
 package com.example.Product.event;
 
-public record OrderProductValidated(Long orderId, boolean ok, String reason) {}
+public record OrderProductValidated(String orderId, boolean ok, String reason) {}
 
