@@ -25,104 +25,104 @@ import org.springframework.core.env.Environment;
 import java.time.LocalDateTime;
 
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
-public class OrderServiceImpl implements OrderService {
+    @Service
+    @RequiredArgsConstructor
+    @Slf4j
+    public class OrderServiceImpl implements OrderService {
 
-    private final OrderRepository orderRepository;
-    private final WebClient.Builder webClientBuilder;
-    private final Environment env;
-    private String userBase;
-    private String productBase;
-    private final OrderMapper orderMapper;
+        private final OrderRepository orderRepository;
+        private final WebClient.Builder webClientBuilder;
+        private final Environment env;
+        private String userBase;
+        private String productBase;
+        private final OrderMapper orderMapper;
 
-    @PostConstruct
-    private void init() {
-        this.userBase = env.getProperty("user.service.url");
-        this.productBase = env.getProperty("product.service.url");
-    }
-
-    @Override
-    @Transactional
-    public OrderResponseDTO createSimpleOrder(OrderRequestDTO request) {
-        log.info("Simple create for user {} product {}",
-                request.getUserId(), request.getProductId());
-
-        OrderEntity order = OrderEntity.builder()
-                .userId(request.getUserId())
-                .productId(request.getProductId())
-                .quantity(request.getQuantity())
-                .status(OrderStatus.PENDING)
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        order = orderRepository.save(order);
-        return orderMapper.toResponse(order);
-
-    }
-
-
-    // Synchronized architecture
-    @Override
-    public OrderResponseDTO createOrder(OrderRequestDTO request) {
-        log.info("Creating order for user {} and product {}", request.getUserId(), request.getProductId());
-
-        WebClient webClient = webClientBuilder.build();
-
-        // 1. Validate user
-        try {
-            webClient.get()
-                    .uri(userBase + "/users/{id}", request.getUserId())
-                    .retrieve()
-                    .onStatus(status -> status.is4xxClientError(), response -> {
-                        log.info("user not found: {}", response.statusCode());
-                        return Mono.error(new ExternalServiceException("user not found"));
-                    })
-                    .onStatus(status -> status.is5xxServerError(), response -> {
-                        log.info("user service error: {}", response.statusCode());
-                        return Mono.error(new ExternalServiceException("user service unavailable"));
-                    })
-                    .bodyToMono(String.class)
-                    .block();
-        } catch (Exception e) {
-            log.info("user service call failed: {}", e.getMessage());
-            throw new ExternalServiceException("user service unavailable");
+        @PostConstruct
+        private void init() {
+            this.userBase = env.getProperty("user.service.url");
+            this.productBase = env.getProperty("product.service.url");
         }
 
-        // 2. Validate product
-        try {
-            webClient.get()
-                    .uri(productBase + "/products/{id}", request.getProductId())
-                    .retrieve()
-                    .onStatus(status -> status.is4xxClientError(), response -> {
-                        log.info("Product not found: {}", response.statusCode());
-                        return Mono.error(new ExternalServiceException("Product not found"));
-                    })
-                    .onStatus(status -> status.is5xxServerError(), response -> {
-                        log.info("Product service error: {}", response.statusCode());
-                        return Mono.error(new ExternalServiceException("Product service unavailable"));
-                    })
-                    .bodyToMono(String.class)
-                    .block();
-        } catch (Exception e) {
-            log.info("Product service call failed: {}", e.getMessage());
-            throw new ExternalServiceException("Product service unavailable");
+        @Override
+        @Transactional
+        public OrderResponseDTO createSimpleOrder(OrderRequestDTO request) {
+            log.info("Simple create for user {} product {}",
+                    request.getUserId(), request.getProductId());
+
+            OrderEntity order = OrderEntity.builder()
+                    .userId(request.getUserId())
+                    .productId(request.getProductId())
+                    .quantity(request.getQuantity())
+                    .status(OrderStatus.PENDING)
+                    .createdAt(LocalDateTime.now())
+                    .build();
+
+            order = orderRepository.save(order);
+            return orderMapper.toResponse(order);
+
         }
 
-        // 3. Save order
-        OrderEntity orderEntity = OrderEntity.builder()
-                .userId(request.getUserId())
-                .productId(request.getProductId())
-                .quantity(request.getQuantity())
-                .status(OrderStatus.PENDING)
-                .createdAt(LocalDateTime.now())
-                .build();
 
-        orderRepository.save(orderEntity);
+        // Synchronized architecture
+        @Override
+        public OrderResponseDTO createOrder(OrderRequestDTO request) {
+            log.info("Creating order for user {} and product {}", request.getUserId(), request.getProductId());
 
-        return orderMapper.toResponse(orderEntity);
-    }
+            WebClient webClient = webClientBuilder.build();
+
+            // 1. Validate user
+            try {
+                webClient.get()
+                        .uri(userBase + "/users/{id}", request.getUserId())
+                        .retrieve()
+                        .onStatus(status -> status.is4xxClientError(), response -> {
+                            log.info("user not found: {}", response.statusCode());
+                            return Mono.error(new ExternalServiceException("user not found"));
+                        })
+                        .onStatus(status -> status.is5xxServerError(), response -> {
+                            log.info("user service error: {}", response.statusCode());
+                            return Mono.error(new ExternalServiceException("user service unavailable"));
+                        })
+                        .bodyToMono(String.class)
+                        .block();
+            } catch (Exception e) {
+                log.info("user service call failed: {}", e.getMessage());
+                throw new ExternalServiceException("user service unavailable");
+            }
+
+            // 2. Validate product
+            try {
+                webClient.get()
+                        .uri(productBase + "/products/{id}", request.getProductId())
+                        .retrieve()
+                        .onStatus(status -> status.is4xxClientError(), response -> {
+                            log.info("Product not found: {}", response.statusCode());
+                            return Mono.error(new ExternalServiceException("Product not found"));
+                        })
+                        .onStatus(status -> status.is5xxServerError(), response -> {
+                            log.info("Product service error: {}", response.statusCode());
+                            return Mono.error(new ExternalServiceException("Product service unavailable"));
+                        })
+                        .bodyToMono(String.class)
+                        .block();
+            } catch (Exception e) {
+                log.info("Product service call failed: {}", e.getMessage());
+                throw new ExternalServiceException("Product service unavailable");
+            }
+
+            // 3. Save order
+            OrderEntity orderEntity = OrderEntity.builder()
+                    .userId(request.getUserId())
+                    .productId(request.getProductId())
+                    .quantity(request.getQuantity())
+                    .status(OrderStatus.PENDING)
+                    .createdAt(LocalDateTime.now())
+                    .build();
+
+            orderRepository.save(orderEntity);
+
+            return orderMapper.toResponse(orderEntity);
+        }
 
     // Asynchronized architecture using Kafka
 

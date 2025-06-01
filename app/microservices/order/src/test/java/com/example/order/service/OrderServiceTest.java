@@ -4,6 +4,7 @@ import com.example.order.dto.OrderResponseDTO;
 import com.example.order.entity.OrderEntity;
 import com.example.order.entity.OrderStatus;
 import com.example.order.exception.ExternalServiceException;
+import com.example.order.mapper.OrderMapper;
 import com.example.order.repository.OrderRepository;
 import com.example.order.service.impl.OrderServiceImpl;
 import org.junit.jupiter.api.*;
@@ -24,6 +25,9 @@ class OrderServiceTest {
 
     @Mock
     private OrderRepository orderRepository;
+
+    @Mock
+    private OrderMapper orderMapper;
 
     @Mock
     private WebClient webClient;
@@ -50,7 +54,7 @@ class OrderServiceTest {
     @Test
     @Order(1)
     void createOrder() {
-        OrderRequestDTO dto = new OrderRequestDTO(4L, 4L, 1);
+        OrderRequestDTO dto = new OrderRequestDTO(4L, 3L, 1);
 
         // builder → webClient
         when(webClientBuilder.build()).thenReturn(webClient);
@@ -82,6 +86,15 @@ class OrderServiceTest {
                 .build();
         when(orderRepository.save(any())).thenReturn(orderEntity);
 
+        // Stub the orderMapper.toResponse() call
+        OrderResponseDTO expectedResponseDTO = OrderResponseDTO.builder()
+                .userId(dto.getUserId())
+                .productId(dto.getProductId())
+                .quantity(dto.getQuantity())
+                .status(OrderStatus.PENDING)
+                .build();
+        when(orderMapper.toResponse(any(OrderEntity.class))).thenReturn(expectedResponseDTO);
+
         OrderResponseDTO result = orderService.createOrder(dto);
 
         assertNotNull(result);
@@ -93,7 +106,7 @@ class OrderServiceTest {
     @Order(2)
     void createOrder_userServiceFails_throwsException() {
         // Prepare the DTO for the order creation request
-        OrderRequestDTO dto = new OrderRequestDTO(4L, 4L, 1);
+        OrderRequestDTO dto = new OrderRequestDTO(4L, 3L, 1);
 
 
         // Mock WebClient calls for user service (simulate failure)        doReturn(requestHeadersUriSpec).when(webClient).get();
