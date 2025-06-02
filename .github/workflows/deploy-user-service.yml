@@ -2,10 +2,10 @@ name: Deploy User Service to Cloud
 
 on:
   push:
-    branches: [ci/setup-cloud]
+    branches: [kafka-integration]
     # Only run the workflow if the commit message contains "[deploy user service]"
   pull_request:
-    branches: [ci/setup-cloud]
+    branches: [kafka-integration]
 
 
 jobs:
