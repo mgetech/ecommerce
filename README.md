@@ -27,6 +27,7 @@ Each microservice runs in its own Docker container with a dedicated PostgreSQL d
 | Containerization           | Docker, Docker Compose                               |
 | Database                   | PostgreSQL (one per service)                         |
 | Caching                    | Redis                                                |
+| Messaging                    | Apache Kafka                                                |
 | Orchestration & Deployment | Kubernetes (GKE), Google Cloud Run                   |
 | CI/CD                      | GitHub Actions                                       |
 | API Docs                   | Swagger UI (SpringDoc OpenAPI)                       |
@@ -65,6 +66,8 @@ Each service is fully decoupled and follows the [database-per-service](https://m
 ✅ Deployable to both Cloud Run and GKE (Kubernetes)
 
 ✅ Redis caching layer for performance optimization
+
+✅ Apache Kafka for event-driven communication between services
 
 🛠️ Continuously evolving with integrations like Redis, Kafka, and Grafana
 
