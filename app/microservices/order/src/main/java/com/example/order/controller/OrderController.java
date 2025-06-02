@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
@@ -26,12 +27,12 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(request));
     }
 
-    @Operation(summary = "Create a new order Asynchronously", description = "Creates an order by publishing an event to Kafka. The order is confirmed only after user and product validation events are received asynchronously from user and product services.")
+/*    @Operation(summary = "Create a new order Asynchronously", description = "**Only on Docker/Locally profiles** — Creates an order by publishing an event to Kafka. The order is confirmed only after user and product validation events are received asynchronously from user and product services.")
     @PostMapping("/async")
     public Mono<ResponseEntity<OrderResponseDTO>> createAsync(@RequestBody @Valid OrderRequestDTO request) {
         return orderService.createOrderAsync(request)
                 .map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp));
-    }
+    }*/
 
     @Operation(summary = "Get order by ID", description = "Fetches order details by order ID  - it already has 3 orders in the database.")
     @GetMapping("/{id}")
